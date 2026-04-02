@@ -27,8 +27,7 @@ const Metronome = () => {
       <div className="w-full max-w-md space-y-8">
         {/* Title */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">Metrônomo</h1>
-          <p className="text-muted-foreground text-sm mt-1">4 tempos × 4 subdivisões</p>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">Tacaticatá</h1>
         </div>
 
         {/* Beat indicators */}
