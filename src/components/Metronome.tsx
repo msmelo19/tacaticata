@@ -54,14 +54,14 @@ const Metronome = () => {
           <Slider
             value={[bpm]}
             onValueChange={([v]) => setBpm(v)}
-            min={40}
+            min={30}
             max={240}
             step={1}
             disabled={isPlaying}
             className="w-full"
           />
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>40</span>
+            <span>30</span>
             <span>240</span>
           </div>
         </div>
