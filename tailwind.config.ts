@@ -47,6 +47,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        beat: {
+          active: "hsl(var(--beat-active))",
+          accent: "hsl(var(--beat-accent))",
+          inactive: "hsl(var(--beat-inactive))",
+        },
+        subdivision: {
+          active: "hsl(var(--subdivision-active))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
