@@ -83,26 +83,46 @@ const Metronome = () => {
             <div className="flex items-center justify-center gap-2">
               <div className="flex flex-col items-center">
                 <label className="text-xs text-muted-foreground mb-1">Min</label>
-                <input
-                  type="number"
-                  min={0}
-                  max={59}
-                  value={timerMinutes}
-                  onChange={(e) => setTimerMinutes(Math.max(0, Math.min(59, Number(e.target.value))))}
-                  className="w-16 h-12 text-center text-2xl font-bold bg-secondary text-foreground rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring tabular-nums"
-                />
+                <div className="flex flex-col items-center gap-1">
+                  <button
+                    onClick={() => setTimerMinutes(Math.min(59, timerMinutes + 1))}
+                    className="w-16 h-7 flex items-center justify-center rounded-lg bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground transition-colors text-xs"
+                  >▲</button>
+                  <input
+                    type="number"
+                    min={0}
+                    max={59}
+                    value={timerMinutes}
+                    onChange={(e) => setTimerMinutes(Math.max(0, Math.min(59, Number(e.target.value))))}
+                    className="w-16 h-12 text-center text-2xl font-bold bg-secondary text-foreground rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    onClick={() => setTimerMinutes(Math.max(0, timerMinutes - 1))}
+                    className="w-16 h-7 flex items-center justify-center rounded-lg bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground transition-colors text-xs"
+                  >▼</button>
+                </div>
               </div>
               <span className="text-2xl font-bold text-muted-foreground mt-5">:</span>
               <div className="flex flex-col items-center">
                 <label className="text-xs text-muted-foreground mb-1">Seg</label>
-                <input
-                  type="number"
-                  min={0}
-                  max={59}
-                  value={timerSeconds}
-                  onChange={(e) => setTimerSeconds(Math.max(0, Math.min(59, Number(e.target.value))))}
-                  className="w-16 h-12 text-center text-2xl font-bold bg-secondary text-foreground rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring tabular-nums"
-                />
+                <div className="flex flex-col items-center gap-1">
+                  <button
+                    onClick={() => setTimerSeconds(Math.min(59, timerSeconds + 1))}
+                    className="w-16 h-7 flex items-center justify-center rounded-lg bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground transition-colors text-xs"
+                  >▲</button>
+                  <input
+                    type="number"
+                    min={0}
+                    max={59}
+                    value={timerSeconds}
+                    onChange={(e) => setTimerSeconds(Math.max(0, Math.min(59, Number(e.target.value))))}
+                    className="w-16 h-12 text-center text-2xl font-bold bg-secondary text-foreground rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    onClick={() => setTimerSeconds(Math.max(0, timerSeconds - 1))}
+                    className="w-16 h-7 flex items-center justify-center rounded-lg bg-secondary border border-border text-muted-foreground hover:bg-accent hover:text-foreground transition-colors text-xs"
+                  >▼</button>
+                </div>
               </div>
             </div>
           )}
