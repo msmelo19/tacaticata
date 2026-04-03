@@ -8,7 +8,7 @@ interface BeatIndicatorProps {
 
 const BeatIndicator = ({ beatIndex, currentBeat, currentSubdivision, subdivisions, isPlaying }: BeatIndicatorProps) => {
   const isActiveBeat = isPlaying && currentBeat === beatIndex;
-  const isAccent = beatIndex === 0;
+  const isAccent = beatIndex === 0 || beatIndex === 2;
 
   return (
     <div className="flex flex-col items-center gap-2">

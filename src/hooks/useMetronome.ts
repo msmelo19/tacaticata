@@ -97,7 +97,7 @@ export function useMetronome() {
       }
 
       const isDownbeat = sub === 0;
-      const isAccent = isDownbeat && beat === 0;
+      const isAccent = isDownbeat && (beat === 0 || beat === 2);
       playClick(isAccent, !isDownbeat);
       setCurrentBeat(beat);
       setCurrentSubdivision(sub);
