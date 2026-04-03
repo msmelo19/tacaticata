@@ -42,5 +42,5 @@
 }
 
 #lovable-badge {
-  visibility: hidden;
+  display: none !important;
 }
