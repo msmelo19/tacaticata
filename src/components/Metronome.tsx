@@ -13,6 +13,7 @@ const formatTime = (ms: number) => {
 };
 
 const Metronome = () => {
+  const navigate = useNavigate();
   const {
     bpm, setBpm,
     isPlaying, start, stop,
