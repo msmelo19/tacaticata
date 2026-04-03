@@ -26,9 +26,13 @@ const Metronome = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
-        {/* Title */}
-        <div className="text-center">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <Button variant="ghost" size="icon" onClick={() => { stop(); navigate("/"); }}>
+            <ArrowLeft className="w-5 h-5" />
+          </Button>
           <h1 className="text-3xl font-bold text-foreground tracking-tight">Tacaticatá</h1>
+          <div className="w-10" />
         </div>
 
         {/* Beat indicators */}
