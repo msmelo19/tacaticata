@@ -26,11 +26,10 @@ const Home = () => {
           <Button
             size="lg"
             variant="secondary"
-            disabled
-            className="w-full h-16 text-xl font-semibold rounded-xl opacity-50"
+            onClick={() => navigate("/exercicios")}
+            className="w-full h-16 text-xl font-semibold rounded-xl"
           >
             Exercícios
-            <span className="ml-2 text-xs font-normal">(em breve)</span>
           </Button>
         </div>
       </div>
