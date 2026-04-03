@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { useMetronome } from "@/hooks/useMetronome";
 import BeatIndicator from "./BeatIndicator";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Play, Square, Timer } from "lucide-react";
+import { ArrowLeft, Play, Square, Timer } from "lucide-react";
 
 const formatTime = (ms: number) => {
   const totalSec = Math.ceil(ms / 1000);
@@ -12,6 +13,7 @@ const formatTime = (ms: number) => {
 };
 
 const Metronome = () => {
+  const navigate = useNavigate();
   const {
     bpm, setBpm,
     isPlaying, start, stop,
@@ -25,9 +27,13 @@ const Metronome = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
-        {/* Title */}
-        <div className="text-center">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <Button variant="ghost" size="icon" onClick={() => { stop(); navigate("/"); }}>
+            <ArrowLeft className="w-5 h-5" />
+          </Button>
           <h1 className="text-3xl font-bold text-foreground tracking-tight">Tacaticatá</h1>
+          <div className="w-10" />
         </div>
 
         {/* Beat indicators */}
