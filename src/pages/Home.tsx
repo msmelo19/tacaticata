@@ -10,7 +10,7 @@ const Home = () => {
       <div className="w-full max-w-md space-y-8 text-center">
         <div>
           <h1 className="text-4xl font-bold text-foreground tracking-tight">Tacaticatá</h1>
-          <p className="text-muted-foreground mt-2">Seu metrônomo de prática</p>
+          <p className="text-muted-foreground mt-2">Seu ajudante para praticar tamborim</p>
         </div>
 
         <div className="space-y-4">
