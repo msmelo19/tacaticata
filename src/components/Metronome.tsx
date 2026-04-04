@@ -23,24 +23,6 @@ const Metronome = () => {
     remainingMs, timerActive,
     beats, subdivisions,
   } = useMetronome();
-  const [bpmInput, setBpmInput] = useState(() => bpm.toString());
-
-  useEffect(() => {
-    setBpmInput(bpm.toString());
-  }, [bpm]);
-
-  const commitBpmInput = () => {
-    const parsed = Number(bpmInput);
-
-    if (Number.isNaN(parsed)) {
-      setBpmInput(bpm.toString());
-      return;
-    }
-
-    const nextBpm = Math.max(30, Math.min(240, parsed));
-    setBpm(nextBpm);
-    setBpmInput(nextBpm.toString());
-  };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
