@@ -52,10 +52,24 @@ const Metronome = () => {
 
         {/* BPM */}
         <div className="bg-card rounded-xl p-6 space-y-4 border border-border">
-          <div className="text-center">
-            <span className="text-5xl font-bold text-primary tabular-nums">{bpm}</span>
-            <span className="text-muted-foreground ml-2 text-lg">BPM</span>
+          <div className="flex items-end justify-center gap-2">
+            <input
+              type="number"
+              min={30}
+              max={240}
+              value={bpm}
+              onChange={(e) => {
+                const v = Number(e.target.value);
+                if (v >= 30 && v <= 240) setBpm(v);
+                else if (v > 240) setBpm(240);
+                else if (v < 30 && e.target.value !== "") setBpm(30);
+              }}
+              disabled={isPlaying}
+              className="w-28 h-16 text-center text-5xl font-bold bg-secondary text-primary rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none disabled:opacity-50"
+            />
+            <span className="text-muted-foreground text-lg pb-3">BPM</span>
           </div>
+          <p className="text-xs text-muted-foreground text-center">Digite o valor ou mova o slider</p>
           <Slider
             value={[bpm]}
             onValueChange={([v]) => setBpm(v)}
