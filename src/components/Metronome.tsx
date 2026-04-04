@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMetronome } from "@/hooks/useMetronome";
 import BeatIndicator from "./BeatIndicator";
@@ -23,6 +24,24 @@ const Metronome = () => {
     remainingMs, timerActive,
     beats, subdivisions,
   } = useMetronome();
+  const [bpmInput, setBpmInput] = useState(() => bpm.toString());
+
+  useEffect(() => {
+    setBpmInput(bpm.toString());
+  }, [bpm]);
+
+  const commitBpmInput = () => {
+    const parsed = Number(bpmInput);
+
+    if (Number.isNaN(parsed)) {
+      setBpmInput(bpm.toString());
+      return;
+    }
+
+    const nextBpm = Math.max(30, Math.min(240, parsed));
+    setBpm(nextBpm);
+    setBpmInput(nextBpm.toString());
+  };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -57,17 +76,18 @@ const Metronome = () => {
               type="number"
               min={30}
               max={240}
-              value={bpm}
+              value={bpmInput}
               onChange={(e) => {
-                const raw = e.target.value;
-                if (raw === "") return;
-                const v = Number(raw);
-                if (!isNaN(v)) setBpm(v);
+                setBpmInput(e.target.value);
+
+                if (e.target.value === "") return;
+
+                const parsed = Number(e.target.value);
+                if (!Number.isNaN(parsed)) {
+                  setBpm(parsed);
+                }
               }}
-              onBlur={() => {
-                if (bpm < 30) setBpm(30);
-                else if (bpm > 240) setBpm(240);
-              }}
+              onBlur={commitBpmInput}
               disabled={isPlaying}
               className="w-28 h-16 text-center text-5xl font-bold bg-secondary text-primary rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none disabled:opacity-50"
             />
