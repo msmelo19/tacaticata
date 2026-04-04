@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useExerciseMetronome } from "@/hooks/useExerciseMetronome";
 import BeatIndicator from "@/components/BeatIndicator";
+import BpmControl from "@/components/BpmControl";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import { ArrowLeft, Play, Square } from "lucide-react";
 
 const EXERCISE_CONFIG = {
