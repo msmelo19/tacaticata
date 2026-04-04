@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMetronome } from "@/hooks/useMetronome";
 import BeatIndicator from "./BeatIndicator";
+import BpmControl from "./BpmControl";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import { ArrowLeft, Play, Square, Timer } from "lucide-react";
 
 const formatTime = (ms: number) => {
