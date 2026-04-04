@@ -59,10 +59,14 @@ const Metronome = () => {
               max={240}
               value={bpm}
               onChange={(e) => {
-                const v = Number(e.target.value);
-                if (v >= 30 && v <= 240) setBpm(v);
-                else if (v > 240) setBpm(240);
-                else if (v < 30 && e.target.value !== "") setBpm(30);
+                const raw = e.target.value;
+                if (raw === "") return;
+                const v = Number(raw);
+                if (!isNaN(v)) setBpm(v);
+              }}
+              onBlur={() => {
+                if (bpm < 30) setBpm(30);
+                else if (bpm > 240) setBpm(240);
               }}
               disabled={isPlaying}
               className="w-28 h-16 text-center text-5xl font-bold bg-secondary text-primary rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none disabled:opacity-50"
@@ -71,7 +75,7 @@ const Metronome = () => {
           </div>
           <p className="text-xs text-muted-foreground text-center">Digite o valor ou mova o slider</p>
           <Slider
-            value={[bpm]}
+            value={[Math.max(30, Math.min(240, bpm))]}
             onValueChange={([v]) => setBpm(v)}
             min={30}
             max={240}
