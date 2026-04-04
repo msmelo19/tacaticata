@@ -52,19 +52,6 @@ const Metronome = () => {
 
         {/* BPM */}
         <BpmControl bpm={bpm} setBpm={setBpm} disabled={isPlaying} />
-            value={[Math.max(30, Math.min(240, bpm))]}
-            onValueChange={([v]) => setBpm(v)}
-            min={30}
-            max={240}
-            step={1}
-            disabled={isPlaying}
-            className="w-full"
-          />
-          <div className="flex justify-between text-xs text-muted-foreground">
-            <span>30</span>
-            <span>240</span>
-          </div>
-        </div>
 
         {/* Timer */}
         <div className="bg-card rounded-xl p-6 space-y-4 border border-border">
