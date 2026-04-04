@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useExerciseMetronome } from "@/hooks/useExerciseMetronome";
 import BeatIndicator from "@/components/BeatIndicator";
+import BpmControl from "@/components/BpmControl";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import { ArrowLeft, Play, Square } from "lucide-react";
 
 const EXERCISE_CONFIG = {
@@ -109,25 +109,7 @@ const ExercisePlayer = () => {
         )}
 
         {/* BPM control */}
-        <div className="bg-card rounded-xl p-6 space-y-4 border border-border">
-          <div className="text-center">
-            <span className="text-5xl font-bold text-primary tabular-nums">{bpm}</span>
-            <span className="text-muted-foreground ml-2 text-lg">BPM</span>
-          </div>
-          <Slider
-            value={[bpm]}
-            onValueChange={([v]) => setBpm(v)}
-            min={30}
-            max={240}
-            step={1}
-            disabled={isActive}
-            className="w-full"
-          />
-          <div className="flex justify-between text-xs text-muted-foreground">
-            <span>30</span>
-            <span>240</span>
-          </div>
-        </div>
+        <BpmControl bpm={bpm} setBpm={setBpm} disabled={isActive} />
 
         {/* Play/Stop */}
         <div className="flex justify-center">
