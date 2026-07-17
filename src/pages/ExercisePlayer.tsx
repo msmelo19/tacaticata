@@ -57,10 +57,9 @@ const ExercisePlayer = () => {
 
         {/* Countdown overlay */}
         {phase === "countdown" && (
-          <div className="flex justify-center">
-            <div className="w-32 h-32 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center">
-              <span className="text-6xl font-bold text-primary tabular-nums">{countdownValue}</span>
-            </div>
+          <div className="bg-card rounded-xl p-4 border border-border text-center space-y-1">
+            <p className="text-sm font-medium text-muted-foreground">Prévia do andamento</p>
+            <p className="text-xs text-muted-foreground">3 compassos de 4 tempos · {countdownValue} restantes</p>
           </div>
         )}
 
@@ -87,7 +86,7 @@ const ExercisePlayer = () => {
         )}
 
         {/* Beat indicators */}
-        {phase === "playing" && (
+        {(phase === "playing" || phase === "countdown") && (
           <>
             <div className="flex justify-center gap-6">
               {Array.from({ length: beats }).map((_, i) => (
@@ -102,9 +101,11 @@ const ExercisePlayer = () => {
               ))}
             </div>
 
-            <div className="bg-card rounded-xl p-4 border border-border text-center">
-              <span className="text-4xl font-bold text-primary tabular-nums">{formatTime(remainingMs)}</span>
-            </div>
+            {phase === "playing" && (
+              <div className="bg-card rounded-xl p-4 border border-border text-center">
+                <span className="text-4xl font-bold text-primary tabular-nums">{formatTime(remainingMs)}</span>
+              </div>
+            )}
           </>
         )}
 
