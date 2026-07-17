@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 
 const BEATS = 4;
 const SUBDIVISIONS = 4;
+const COUNTDOWN_MEASURES = 3;
 
 type Phase = "idle" | "countdown" | "playing" | "rest" | "block-rest" | "finished";
 
@@ -63,19 +64,6 @@ export function useExerciseMetronome(config: ExerciseConfig) {
     osc.start(ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
     osc.stop(ctx.currentTime + 0.05);
-  }, [getAudioContext]);
-
-  const playBeep = useCallback(() => {
-    const ctx = getAudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.frequency.value = 880;
-    gain.gain.value = 0.6;
-    osc.start(ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
-    osc.stop(ctx.currentTime + 0.15);
   }, [getAudioContext]);
 
   const clearAllIntervals = useCallback(() => {
@@ -194,24 +182,52 @@ export function useExerciseMetronome(config: ExerciseConfig) {
     setCurrentBlock(0);
     setCurrentRound(0);
     setPhase("countdown");
-    setCountdownValue(3);
 
-    let count = 3;
-    playBeep();
+    const totalCountdownBeats = COUNTDOWN_MEASURES * BEATS;
+    setCountdownValue(totalCountdownBeats);
+    beatRef.current = 0;
+    subRef.current = 0;
 
-    const countdownInterval = window.setInterval(() => {
-      count--;
-      if (count <= 0) {
-        clearInterval(countdownInterval);
-        startPlayingPhase();
-      } else {
-        setCountdownValue(count);
-        playBeep();
+    const beatIntervalMs = 60000 / bpmRef.current;
+    const subdivisionInterval = beatIntervalMs / SUBDIVISIONS;
+    let remainingBeats = totalCountdownBeats;
+
+    // First click immediately (downbeat / accent)
+    playClick(true, false);
+    setCurrentBeat(0);
+    setCurrentSubdivision(0);
+    setCountdownValue(remainingBeats);
+    subRef.current = 1;
+
+    intervalRef.current = window.setInterval(() => {
+      const isDownbeat = subRef.current === 0;
+      if (isDownbeat) {
+        remainingBeats--;
+        if (remainingBeats <= 0) {
+          clearAllIntervals();
+          setCurrentBeat(-1);
+          setCurrentSubdivision(-1);
+          startPlayingPhase();
+          return;
+        }
+        setCountdownValue(remainingBeats);
       }
-    }, 1000);
 
-    intervalRef.current = countdownInterval;
-  }, [getAudioContext, playBeep, startPlayingPhase]);
+      const isAccent = isDownbeat && (beatRef.current === 0 || beatRef.current === 2);
+      playClick(isAccent, !isDownbeat);
+      setCurrentBeat(beatRef.current);
+      setCurrentSubdivision(subRef.current);
+
+      subRef.current++;
+      if (subRef.current >= SUBDIVISIONS) {
+        subRef.current = 0;
+        beatRef.current++;
+        if (beatRef.current >= BEATS) {
+          beatRef.current = 0;
+        }
+      }
+    }, subdivisionInterval);
+  }, [getAudioContext, playClick, clearAllIntervals, startPlayingPhase]);
 
   const stop = useCallback(() => {
     clearAllIntervals();
